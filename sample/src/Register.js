@@ -2,6 +2,8 @@ import { useState } from "react";
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import validation from "./Validation";
+
 
 function Register() {
   const [values, setValues] = useState({
@@ -11,6 +13,7 @@ function Register() {
     password: ''
   });
   const navigate = useNavigate();
+  const [errors, seterror] = useState({});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -22,6 +25,8 @@ function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    seterror(validation(values));
+    if(errors.password === ""){
 
     axios.post('http://localhost:8081/register', values)
       .then((res) => {
@@ -30,6 +35,7 @@ function Register() {
       .catch((err) => {
         console.log("error");
       });
+    }
   };
 
   return (
@@ -69,11 +75,13 @@ function Register() {
             <div className="mb-3">
               <label htmlFor="number" className="form-label">Phone</label>
               <input
-                type="text"
+                type="tel"
                 className="form-control"
                 id="number"
                 placeholder="Enter your phone number"
                 name='number'
+                minLength={10}
+                maxLength={12}
                 value={values.number}
                 onChange={handleChange}
                 required
@@ -91,6 +99,7 @@ function Register() {
                 onChange={handleChange}
                 required
               />
+              {errors.password && <span className='text-danger'> {errors.password} </span>}
             </div>
             <button type="submit" className="btn btn-success">
               Submit

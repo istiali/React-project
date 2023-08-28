@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import validation from './Validation';
+
 
 function Login() {
   const [values, setValues] = useState({
     email: '',
     password: ''
   });
+  const [errors, seterror] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -20,6 +23,10 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    seterror(validation(values));
+    if(errors.password === ""){
+
+    
 
     console.log("Submitting:", values);
 
@@ -40,6 +47,7 @@ function Login() {
       .catch((err) => {
         console.log("Error:", err);
       });
+    }
   };
 
 
@@ -78,6 +86,7 @@ function Login() {
                 onChange={handleChange}
                 required
               />
+              {errors.password && <span className='text-danger'> {errors.password} </span>}
               <div className="form-text">
                 Must be 8-20 characters long.
               </div>
