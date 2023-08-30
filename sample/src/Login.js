@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import validation from './Validation';
-
+import {Button} from 'antd';
+import {LoginOutlined} from '@ant-design/icons';
 
 function Login() {
   const [values, setValues] = useState({
@@ -21,6 +22,7 @@ function Login() {
     }));
   };
 
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     seterror(validation(values));
@@ -58,7 +60,7 @@ function Login() {
           <div className="text-center mb-4">
             <h2>Login Page</h2>
           </div>
-          <form onSubmit={handleSubmit} className="border p-4 rounded shadow">
+          <form  className="border p-4 rounded shadow">
             <div className="mb-3">
               <label htmlFor="exampleFormControlInput1" className="form-label">
                 Email address
@@ -92,9 +94,19 @@ function Login() {
               </div>
             </div>
             <div className="mb-3 text-center">
-              <button type="submit" className="btn btn-success">
+              <Button type="primary" icon= <LoginOutlined /> onClick={handleSubmit}>
                 Login
-              </button>
+              </Button>
+            </div>
+            <div className="mb-3 text-center">
+              <label className="form-label">
+                If you want to login with OTP, click below:
+              </label>
+            </div>
+            <div className="mb-3 text-center">
+              <Link to="/otp" className="btn btn-success">
+                Login with Otp
+              </Link>
             </div>
             <hr/>
             <div className="mb-3 text-center">

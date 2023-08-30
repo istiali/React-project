@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -81,7 +82,7 @@ function Register() {
                 placeholder="Enter your phone number"
                 name='number'
                 minLength={10}
-                maxLength={12}
+                maxLength={10}
                 value={values.number}
                 onChange={handleChange}
                 required
@@ -104,6 +105,17 @@ function Register() {
             <button type="submit" className="btn btn-success">
               Submit
             </button>
+            <hr/>
+            <div className="mb-3 text-center">
+              <label className="form-label">
+                If you are already registered, click below to login:
+              </label>
+            </div>
+            <div className="mb-3 text-center">
+              <Link to="/" className="btn btn-success">
+                Login
+              </Link>
+            </div>
           </form>
         </div>
       </div>
